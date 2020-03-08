@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<note>
-
-   <note1>
-   		<to>Tove</to>
-		<from>Jani</from>
-		<heading>Reminder</heading>
-		<body>Don't forget me this weekend!</body>
-   </note1>
-   <note2>
-   		<to>Toveee</to>
-		<from>Janiyyy</from>
-		<heading>Remifsdfnder</heading>
-		<body>Don't forget sdvfsd me this weekend!</body>
-   </note2>
-
-</note>
-
+<Employees>
+	<Employee id="1">
+		<name>Pankaj</name>
+		<age>29</age>
+		<role>Java Developer</role>
+		<gender>Male</gender>
+	</Employee>
+	<Employee id="2">
+		<name>Lisa</name>
+		<age>35</age>
+		<role>CSS Developer</role>
+		<gender>Female</gender>
+	</Employee>
+</Employees>

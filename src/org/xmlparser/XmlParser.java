@@ -15,11 +15,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class XmlParser {
 	
-    private final static String FILE = "D:\\RFPT-Upgrade\\XmlParser\\src\\org\\xmlparser\\TestFile.xml";
+    private final static String FILE_LOCATION = "C:\\workspace_2\\XmlParserTest\\XmlParser\\src\\org\\xmlparser\\TestFile.xml";
 
     private void printValuesLikeMap(final Document doc) {
-        Element element = doc.getDocumentElement();
-        NodeList nodeList = element.getChildNodes();
+        final Element element = doc.getDocumentElement();
+        final NodeList nodeList = element.getChildNodes();
         Node node = null;
         NodeList nList = null;
         Node innerNode = null;
@@ -29,7 +29,7 @@ public class XmlParser {
         for (int len = 0; len < nodeList.getLength(); len++) {
             node = nodeList.item(len);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
-                System.out.println(node.getNodeName() + "   " + node.getNodeType());
+                System.out.println(node.getNodeValue() + "	" + node.getNodeName() + "   " + node.getNodeType());
                 System.out.println("----------------------------------------------------");
 
                 nList = node.getChildNodes();
@@ -57,16 +57,12 @@ public class XmlParser {
     }
 
     private void processXml() {
-        DocumentBuilderFactory docBuilderFactory = null;
-        DocumentBuilder docBuilder = null;
-        Document doc = null;
-
         try {
-            docBuilderFactory = DocumentBuilderFactory.newInstance();
-            docBuilder = docBuilderFactory.newDocumentBuilder();
-            doc = docBuilder.parse(new File(FILE));
-            // printValuesLikeMap(doc);
-            m1(doc);
+            final DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+            final Document doc = docBuilder.parse(new File(FILE_LOCATION));
+            //printValuesLikeMap(doc);
+            //m1(doc);
 
         } catch (final ParserConfigurationException e) {
             e.printStackTrace();
