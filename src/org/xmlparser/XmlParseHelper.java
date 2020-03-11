@@ -104,13 +104,16 @@ public final class XmlParseHelper {
 	}
 	
 	public static final void mergeXml(final Document doc, final File sourceFile) {
+		//final NodeList employees = (NodeList) doc.getElementsByTagName("Employee");
 		final Element employees = doc.getDocumentElement();
 		final Document sourceDoc = newDocumentInstance(sourceFile);
 		final NodeList empsFromSource = (NodeList) sourceDoc.getElementsByTagName("Employee");
 		Node empToBeAppended = null;
 		if (employees != null && empsFromSource != null) {
 			for (int len = 0; len < empsFromSource.getLength(); len ++) {
-				empToBeAppended = empsFromSource.item(len);
+				//empToBeAppended = empsFromSource.item(len);
+				empToBeAppended = doc.importNode(empsFromSource.item(len), true);
+				//employees.item(0).getParentNode().appendChild(empToBeAppended);
 				employees.appendChild(empToBeAppended);
 			}
 		}

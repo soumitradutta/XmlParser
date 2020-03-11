@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Employees>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Employees>
     <Employee id="1">
         <name>Pankaj</name>
         <age>29</age>
@@ -10,6 +9,18 @@
         <name>Lisa</name>
         <age>34</age>
         <role>Java Developer</role>
+        <gender>Female</gender>
+    </Employee>
+	<Employee id="3">
+        <name>John</name>
+        <age>29</age>
+        <role>React</role>
+        <gender>Male</gender>
+    </Employee>
+    <Employee id="4">
+        <name>Helen</name>
+        <age>34</age>
+        <role>CSS Dev</role>
         <gender>Female</gender>
     </Employee>
 </Employees>
