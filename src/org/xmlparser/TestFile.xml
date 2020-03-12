@@ -4,6 +4,8 @@
         <age>29</age>
         <role>Java Developer</role>
         <gender>Male</gender>
+        <salary>123456</salary>
+        <company>Accenture And Infosys</company>
     </Employee>
     <Employee id="2">
         <name>Lisa</name>

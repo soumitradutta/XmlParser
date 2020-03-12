@@ -23,7 +23,8 @@ import javax.xml.transform.stream.StreamResult;
 public class XmlParser {
 	
     private final static String FILE_LOCATION = "C:\\workspace_2\\XmlParserTest\\XmlParser\\src\\org\\xmlparser\\TestFile.xml";
-    private final static String SOURCE_FILE = "C:\\workspace_2\\XmlParserTest\\XmlParser\\src\\org\\xmlparser\\source.xml";
+    private final static String SOURCE_FILE_1 = "C:\\workspace_2\\XmlParserTest\\XmlParser\\src\\org\\xmlparser\\source.xml";
+    private final static String SOURCE_FILE_2 = "C:\\workspace_2\\XmlParserTest\\XmlParser\\src\\org\\xmlparser\\source1.xml";
 
     private void printValuesLikeMap(final Document doc) {
         final Element element = doc.getDocumentElement();
@@ -75,7 +76,9 @@ public class XmlParser {
             //XmlParseHelper.deleteElement(doc, "2", "salary");
             //XmlParseHelper.updateElementValue(doc, "2", "role", "Java Developer");
             //XmlParseHelper.updateAttributeValue(doc, "1", "5");
-            XmlParseHelper.mergeXml(doc, new File(SOURCE_FILE));
+            //XmlParseHelper.mergeXml(doc, new File(SOURCE_FILE_1));
+            //XmlParseHelper.addChildNodeToParentElement(doc, "1", new File(SOURCE_FILE_2));
+            XmlParseHelper.appendElementValueFromOtherSorce(doc, "1", "company", new File(SOURCE_FILE_2));
             
             final TransformerFactory transformerFactory = TransformerFactory.newInstance();
             final Transformer transformer = transformerFactory.newTransformer();

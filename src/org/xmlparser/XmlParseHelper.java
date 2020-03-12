@@ -76,7 +76,8 @@ public final class XmlParseHelper {
 		}
 	}
 	
-	public static final void updateElementValue(final Document doc, final String empId, final String elementName, final String elementValue) {
+	public static final void updateElementValue(final Document doc, final String empId, final String elementName, 
+			final String elementValue) {
 		final NodeList employees = (NodeList) doc.getElementsByTagName("Employee");
 		Element employee = null;
 		if (null != employees) {
@@ -85,6 +86,44 @@ public final class XmlParseHelper {
 				if (null != employee && empId.equals(employee.getAttribute("id"))) {
 					final Text textNodeToBeUpdated = (Text) employee.getElementsByTagName(elementName).item(0).getFirstChild();
 					textNodeToBeUpdated.setNodeValue(elementValue);
+				}
+			}
+		}
+	}
+	
+	public static final void appendElementValueFromOtherSorce(final Document doc, final String empId, final String elementName, 
+			final File srcFile) {
+		final NodeList employees = (NodeList) doc.getElementsByTagName("Employee");
+		final Document sourceDoc = newDocumentInstance(srcFile);
+		final NodeList empsFromSource = (NodeList) sourceDoc.getElementsByTagName("Employee");
+		Element destElement = null;
+		Element srcElement = null;
+		
+		for (int dIndex = 0; dIndex < employees.getLength(); dIndex ++) {
+			destElement = (Element) employees.item(dIndex);
+			for (int sIndex = 0; sIndex < empsFromSource.getLength(); sIndex ++) {
+				srcElement = (Element) empsFromSource.item(sIndex);
+				if (empId.equals(destElement.getAttribute("id")) 
+						&& destElement.getAttribute("id").equals(srcElement.getAttribute("id"))) {
+					if (destElement.hasChildNodes() && srcElement.hasChildNodes()) {
+						final NodeList dList = destElement.getChildNodes();
+						final NodeList sList = srcElement.getChildNodes();
+						for (int dLen = 0; dLen < dList.getLength(); dLen ++ ) {
+							final Node dNode = dList.item(dLen);
+							for (int sLen = 0; sLen < sList.getLength(); sLen ++) {
+								final Node sNode = sList.item(sLen);
+								if (Node.ELEMENT_NODE == dNode.getNodeType() && Node.ELEMENT_NODE == sNode.getNodeType() 
+										&& dNode.getNodeName().equals(sNode.getNodeName()) && elementName.equals(dNode.getNodeName())) {
+									final StringBuilder nodeContent = new StringBuilder();
+									final Text dTextNode = (Text) dNode.getFirstChild();
+									final Text sTextNode = (Text) sNode.getFirstChild();
+									nodeContent.append(dTextNode.getTextContent()).append(" ").append(sTextNode.getTextContent());
+									dTextNode.setTextContent(nodeContent.toString());
+								}
+							}
+						}
+					}
+					
 				}
 			}
 		}
@@ -115,6 +154,31 @@ public final class XmlParseHelper {
 				empToBeAppended = doc.importNode(empsFromSource.item(len), true);
 				//employees.item(0).getParentNode().appendChild(empToBeAppended);
 				employees.appendChild(empToBeAppended);
+			}
+		}
+	}
+	
+	public static final void addChildNodeToParentElement(final Document doc, final String empId, final File sourceFile) {
+		final NodeList employees = (NodeList) doc.getElementsByTagName("Employee");
+		final Document sourceDoc = newDocumentInstance(sourceFile);
+		final NodeList empsFromSource = (NodeList) sourceDoc.getElementsByTagName("Employee");
+		Node nodeToBeAppended = null;
+		Element destElement = null;
+		Element srcElement = null;
+		
+		for (int dIndex = 0; dIndex < employees.getLength(); dIndex ++) {
+			destElement = (Element) employees.item(dIndex);
+			for (int sIndex = 0; sIndex < empsFromSource.getLength(); sIndex ++) {
+				srcElement = (Element) empsFromSource.item(sIndex);
+				if (srcElement.getAttribute("id").equals(destElement.getAttribute("id"))) {
+					if (srcElement.hasChildNodes()) {
+						final NodeList nList = srcElement.getChildNodes();
+						for (int len = 0; len < nList.getLength(); len ++) {
+							nodeToBeAppended = doc.importNode(nList.item(len), true);
+							destElement.appendChild(nodeToBeAppended);
+						}
+					}
+				}
 			}
 		}
 	}
